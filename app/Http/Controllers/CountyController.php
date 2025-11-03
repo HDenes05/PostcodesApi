@@ -39,6 +39,10 @@ class CountyController extends Controller
         $county = County::findOrFail($id);
         $county->update($request->all());
 
+        /*if (!$county) {
+            return response()->json(['message' => 'Not found!'], 404);
+        }*/
+
         return response()->json([
             'data' => $county,
         ]);

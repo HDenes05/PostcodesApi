@@ -82,20 +82,21 @@ class CountyControllerTest extends TestCase
 
     public function test_update_returns_404_for_missing_county()
     {
-        $county = County::factory()->create(['name' => 'Tolna']);
-
         $user = User::factory()->create();
         $token = $user->createToken('TestToken')->plainTextToken;
-
+    
+        $nonExistentCountyId = 999999; // Assuming this ID doesn't exist
+    
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->putJson("/api/counties/{$county->id}", [
+        ])->putJson("/api/counties/{$nonExistentCountyId}", [
             'name' => 'valami'
         ]);
-
+    
         $response->assertStatus(404)
             ->assertJsonFragment(['message' => 'Not found!']);
-    } 
+    }
+
 
     public function test_delete_removes_county()
     {
