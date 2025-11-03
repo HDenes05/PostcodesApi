@@ -9,4 +9,7 @@ class City extends Model
     public $timestamps = false;
     protected $fillable = ['postal_code', 'place_name', 'county_id'];
 
+    public function county(){
+        return $this->belongsTo(PostalCode::class);
+    }
 }
